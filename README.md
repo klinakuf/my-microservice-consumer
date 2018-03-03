@@ -1,6 +1,19 @@
 # my-microservice-consumer
 springoboot microservice consumer
 
+# Build and create Docker Image
+
+Assumptions:
+1. mvn, docker are installed
+
+```
+git clone repo
+mvn package
+mvn install dockerfile:build
+docker push klinakuf/my-microsercvice-consumer
+```
+
+Destroy pods to see updates in the Kubernetes cluster. 
 
 # Deploy the service to Kubernetes
 
