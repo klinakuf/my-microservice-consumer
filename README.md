@@ -36,27 +36,9 @@ http://localhost:8001/api/v1/namespaces/default/services/my-ms-consumer/proxy/
 
 # Install rabbitmq via helm
 
-```
-** Please be patient while the chart is being deployed **
+``` helm install --set persistence.enabled=false stable/rabbitmq ```
 
-  Credentials:
+Management Interface will be available at 
 
-    echo Username      : user
-    echo Password      : $(kubectl get secret --namespace default romping-opossum-rabbitmq -o jsonpath="{.data.rabbitmq-password}" | base64 --decode)
-    echo ErLang Cookie : $(kubectl get secret --namespace default romping-opossum-rabbitmq -o jsonpath="{.data.rabbitmq-erlang-cookie}" | base64 --decode)
+``` http://localhost:8001/api/v1/namespaces/default/services/GENERATED-NAME-BY-HELM:stats/proxy```
 
-  RabbitMQ can be accessed within the cluster on port 5672 at romping-opossum-rabbitmq.default.svc.cluster.local
-
-  To access for outside the cluster execute the following commands:
-
-    export POD_NAME=$(kubectl get pods --namespace default -l "app=romping-opossum-rabbitmq" -o jsonpath="{.items[0].metadata.name}")
-    kubectl port-forward $POD_NAME 5672:5672 15672:15672
-
-  To Access the RabbitMQ AMQP port:
-
-    echo amqp://127.0.0.1:5672/
-
-  To Access the RabbitMQ Management interface:
-
-    echo URL : http://127.0.0.1:15672
-```
